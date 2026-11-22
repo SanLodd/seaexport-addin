@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Seaexport AI</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <script src="config.js"></script>
+  <script src="msal-browser.min.js"></script>
+  <style>
+    :root { --blue:#005293; --grey:#605e5c; --line:#edebe9; --bg:#faf9f8; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:"Segoe UI",Arial,sans-serif; font-size:13px; color:#323130; background:#fff; }
+    header { background:var(--blue); color:#fff; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; }
+    header h1 { font-size:14px; margin:0; font-weight:600; }
+    header button { background:transparent; border:1px solid rgba(255,255,255,.6); color:#fff; border-radius:4px; padding:3px 8px; cursor:pointer; font-size:12px; }
+    main { padding:10px 12px 24px; }
+    .muted { color:var(--grey); }
+    .state { padding:16px 4px; color:var(--grey); }
+    .error { color:#a4262c; white-space:pre-wrap; }
+    .badges { display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 10px; }
+    .badge { border-radius:10px; padding:2px 9px; font-size:12px; background:#f3f2f1; border:1px solid var(--line); }
+    .b-folder { background:#deecf9; border-color:#c7e0f4; font-weight:600; }
+    .b-high { background:#dff6dd; border-color:#bad80a55; }
+    .b-medium { background:#fff4ce; border-color:#ffe08a; }
+    .b-low { background:#fde7e9; border-color:#f1bbbc; }
+    .b-action { background:#fde7e9; border-color:#f1bbbc; font-weight:600; }
+    .b-noaction { background:#f3f2f1; }
+    section { border-top:1px solid var(--line); padding:10px 0; }
+    section h2 { font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:var(--grey); margin:0 0 6px; font-weight:600; }
+    .action { background:var(--bg); border-left:3px solid #d13438; padding:8px 10px; border-radius:2px; }
+    .summary { line-height:1.45; }
+    table { width:100%; border-collapse:collapse; }
+    td { padding:3px 0; vertical-align:top; border-bottom:1px solid #f3f2f1; }
+    td.k { color:var(--grey); width:42%; padding-right:8px; }
+    .chips { display:flex; flex-wrap:wrap; gap:4px; }
+    .chip { font-family:Consolas,monospace; font-size:12px; background:#f3f2f1; border-radius:3px; padding:1px 6px; cursor:pointer; }
+    .chip:hover { background:#e1dfdd; }
+    .links { display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
+    .links a, .btn { color:var(--blue); text-decoration:none; border:1px solid #c7e0f4; padding:4px 8px; border-radius:4px; font-size:12px; background:#fff; cursor:pointer; }
+    details summary { cursor:pointer; color:var(--grey); font-size:12px; }
+    .cnt { font-family:Consolas,monospace; font-size:12px; }
+    .toast { position:fixed; bottom:10px; left:50%; transform:translateX(-50%); background:#323130; color:#fff; padding:5px 10px; border-radius:4px; font-size:12px; display:none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Seaexport AI</h1>
+    <button id="refresh" title="Opnieuw laden">↻ Vernieuwen</button>
+  </header>
+  <main id="content"><div class="state">Laden…</div></main>
+  <div class="toast" id="toast">Gekopieerd</div>
+  <script src="taskpane.js"></script>
+</body>
+</html>
