@@ -14,30 +14,51 @@
     header { background:var(--blue); color:#fff; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; }
     header h1 { font-size:14px; margin:0; font-weight:600; }
     header button { background:transparent; border:1px solid rgba(255,255,255,.6); color:#fff; border-radius:4px; padding:3px 8px; cursor:pointer; font-size:12px; }
+
+    nav.tabs { display:flex; border-bottom:1px solid var(--line); background:#fff; position:sticky; top:0; z-index:5; }
+    nav.tabs button { flex:1; border:0; background:transparent; padding:8px 2px 7px; font-size:12px; color:var(--grey); cursor:pointer; border-bottom:2px solid transparent; position:relative; white-space:nowrap; font-family:inherit; }
+    nav.tabs button .ic { display:block; font-size:15px; line-height:1.1; }
+    nav.tabs button.active { color:var(--blue); border-bottom-color:var(--blue); font-weight:600; }
+    nav.tabs button .dot { position:absolute; top:5px; right:calc(50% - 14px); width:8px; height:8px; border-radius:50%; background:#d13438; }
+    nav.tabs.hidden { display:none; }
+
     main { padding:10px 12px 24px; }
     .muted { color:var(--grey); }
     .state { padding:16px 4px; color:var(--grey); }
     .error { color:#a4262c; white-space:pre-wrap; }
+    .subject { font-weight:600; margin:2px 0 8px; line-height:1.3; }
     .badges { display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 10px; }
     .badge { border-radius:10px; padding:2px 9px; font-size:12px; background:#f3f2f1; border:1px solid var(--line); }
     .b-folder { background:#deecf9; border-color:#c7e0f4; font-weight:600; }
-    .b-high { background:#dff6dd; border-color:#bad80a55; }
-    .b-medium { background:#fff4ce; border-color:#ffe08a; }
-    .b-low { background:#fde7e9; border-color:#f1bbbc; }
+    .b-high { background:#dff6dd; }
+    .b-medium { background:#fff4ce; }
+    .b-low { background:#fde7e9; }
     .b-action { background:#fde7e9; border-color:#f1bbbc; font-weight:600; }
-    .b-noaction { background:#f3f2f1; }
     section { border-top:1px solid var(--line); padding:10px 0; }
+    section:first-child { border-top:0; padding-top:2px; }
     section h2 { font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:var(--grey); margin:0 0 6px; font-weight:600; }
     .action { background:var(--bg); border-left:3px solid #d13438; padding:8px 10px; border-radius:2px; }
+    .action.none { border-left-color:#8a8886; }
     .summary { line-height:1.45; }
     table { width:100%; border-collapse:collapse; }
     td { padding:3px 0; vertical-align:top; border-bottom:1px solid #f3f2f1; }
-    td.k { color:var(--grey); width:42%; padding-right:8px; }
+    td.k { color:var(--grey); width:40%; padding-right:8px; }
     .chips { display:flex; flex-wrap:wrap; gap:4px; }
     .chip { font-family:Consolas,monospace; font-size:12px; background:#f3f2f1; border-radius:3px; padding:1px 6px; cursor:pointer; }
     .chip:hover { background:#e1dfdd; }
-    .links { display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
-    .links a, .btn { color:var(--blue); text-decoration:none; border:1px solid #c7e0f4; padding:4px 8px; border-radius:4px; font-size:12px; background:#fff; cursor:pointer; }
+    .links { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; }
+    .links a, .btn { color:var(--blue); text-decoration:none; border:1px solid #c7e0f4; padding:4px 8px; border-radius:4px; font-size:12px; background:#fff; cursor:pointer; font-family:inherit; }
+    .links a:hover, .btn:hover { background:#f3f9fd; }
+    .linkrow { padding:6px 0; border-bottom:1px solid #f3f2f1; }
+    .linkrow .ref { font-family:Consolas,monospace; font-size:12px; margin-bottom:3px; }
+    .actionbtn { display:flex; width:100%; text-align:left; gap:10px; align-items:center; border:1px solid var(--line); background:#fff; border-radius:6px; padding:10px; margin-bottom:8px; cursor:pointer; font-family:inherit; font-size:13px; color:#323130; }
+    .actionbtn:hover:not([disabled]) { border-color:#c7e0f4; background:#f3f9fd; }
+    .actionbtn[disabled] { opacity:.55; cursor:default; }
+    .actionbtn .ic { font-size:18px; }
+    .actionbtn small { display:block; color:var(--grey); font-size:11px; }
+    .subhead { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+    .subhead button { border:0; background:transparent; color:var(--blue); cursor:pointer; font-size:13px; padding:0; font-family:inherit; }
+    .subhead b { font-size:14px; }
     details summary { cursor:pointer; color:var(--grey); font-size:12px; }
     .cnt { font-family:Consolas,monospace; font-size:12px; }
     .toast { position:fixed; bottom:10px; left:50%; transform:translateX(-50%); background:#323130; color:#fff; padding:5px 10px; border-radius:4px; font-size:12px; display:none; }
@@ -48,6 +69,13 @@
     <h1>Seaexport AI</h1>
     <button id="refresh" title="Opnieuw laden">↻ Vernieuwen</button>
   </header>
+  <nav class="tabs hidden" id="tabs">
+    <button data-tab="routing"><span class="ic">🧭</span>Routing</button>
+    <button data-tab="analyse"><span class="ic">🧠</span>Analyse</button>
+    <button data-tab="cw"><span class="ic">🚢</span>CW</button>
+    <button data-tab="acties"><span class="ic">⚡</span>Acties</button>
+    <button data-tab="links"><span class="ic">🔗</span>Links</button>
+  </nav>
   <main id="content"><div class="state">Laden…</div></main>
   <div class="toast" id="toast">Gekopieerd</div>
   <script src="taskpane.js"></script>
